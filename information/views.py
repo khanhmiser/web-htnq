@@ -11,6 +11,7 @@ from .models import BAOCAO
 from information.form.forms import NhanVienForm
 from information.form.forms import HopDongForm
 
+
 #login
 @csrf_exempt
 def login_view(request):
