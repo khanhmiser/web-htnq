@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Báo cáo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 250px;
+            margin-right: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+        .btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+
+            table th, table td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Danh sách Báo cáo</h1>
+
+        <!-- Thanh tìm kiếm -->
+        <div class="search-bar">
+            <input type="text" id="search" placeholder="Tìm kiếm theo Mã báo cáo..." onkeyup="searchFunction()">
+        </div>
+
+        <!-- Bảng danh sách báo cáo -->
+        <table id="reportTable">
+            <thead>
+                <tr>
+                    <th>Mã báo cáo</th>
+                    <th>Mã cửa hàng</th>
+                    <th>Mã xác thực</th>
+                    <th>Loại báo cáo</th>
+                    <th>Ngày báo cáo</th>
+                    <th>Nội dung báo cáo</th>
+                    <th>Doanh thu</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for baocao in baocao %}
+                    <tr>
+                        <td>{{ baocao.MABAOCAO }}</td>
+                        <td>{{ baocao.cuahang.MACH }}</td>
+                        <td>{{ baocao.xacthuc.MaXacThuc }}</td>
+                        <td>{{ baocao.LOAIBAOCAO }}</td>
+                        <td>{{ baocao.NGAYBAOCAO }}</td>
+                        <td>{{ baocao.NOIDUNGBAOCAO }}</td>
+                        <td>{{ baocao.DOANHTHU }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function searchFunction() {
+            let input = document.getElementById("search");
+            let filter = input.value.toUpperCase();
+            let table = document.getElementById("reportTable");
+            let tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName("td");
+                let match = false;
+
+                for (let j = 0; j < td.length; j++) {
+                    if (td[j]) {
+                        let txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            match = true;
+                        }
+                    }
+                }
+
+                if (match) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
