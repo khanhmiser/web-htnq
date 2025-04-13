@@ -18,48 +18,33 @@
                 {% csrf_token %}
 
                 <div class="mb-3">
-                    <label for="id_MANV" class="form-label">Mã nhân viên</label>
-                    {{ form.MANV }}
+                    <label for="id_MAHD" class="form-label">Mã hợp đồng</label>
+                    {{ form.MAHD }}
                 </div>
 
                 <div class="mb-3">
-                    <label for="id_MAQL" class="form-label">Mã quản lý</label>
-                    {{ form.MAQL }}
+                    <label for="id_CHIPHITONG" class="form-label">Chi phí tổng</label>
+                    {{ form.CHIPHITONG }}
                 </div>
 
                 <div class="mb-3">
-                    <label for="id_phongban" class="form-label">Phòng ban</label>
-                    {{ form.phongban }}
+                    <label for="id_NGAYBATDAU" class="form-label">Ngày bắt đầu</label>
+                    {{ form.NGAYBATDAU }}
                 </div>
 
                 <div class="mb-3">
-                    <label for="id_HOTEN" class="form-label">Họ tên</label>
-                    {{ form.HOTEN }}
+                    <label for="id_NGAYKETTHUC" class="form-label">Ngày kết thúc</label>
+                    {{ form.NGAYKETTHUC }}
                 </div>
 
                 <div class="mb-3">
-                    <label for="id_EMAIL" class="form-label">Email</label>
-                    {{ form.EMAIL }}
+                    <label for="id_goi" class="form-label">Gói nhượng quyền</label>
+                    {{ form.goi }}
                 </div>
 
                 <div class="mb-3">
-                    <label for="id_SDT" class="form-label">SĐT</label>
-                    {{ form.SDT }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="id_NGAYSINH" class="form-label">Ngày sinh</label>
-                    {{ form.NGAYSINH }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="id_HESOLUONG" class="form-label">Hệ số lương</label>
-                    {{ form.HESOLUONG }}
-                </div>
-
-                <div class="mb-3">
-                    <label for="id_NGAYVAOLAM" class="form-label">Ngày vào làm</label>
-                    {{ form.NGAYVAOLAM }}
+                    <label for="id_nhuongquyen" class="form-label">Bên nhận nhượng quyền</label>
+                    {{ form.nhuongquyen }}
                 </div>
 
                 <div class="d-grid mb-3">
@@ -67,7 +52,7 @@
                 </div>
 
                 <div class="text-center">
-                    <a href="{% url 'employee_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
+                    <a href="{% url 'hopdong_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
                 </div>
             </form>
         </div>
