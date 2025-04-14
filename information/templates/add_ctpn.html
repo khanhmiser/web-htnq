@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Chi Tiết Phiếu Nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white">
+            <h4>Thêm Chi Tiết Phiếu Nhập</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Mã Phiếu Nhập</label>
+                    {{ form.MAPHIEUNHAP }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Hàng</label>
+                    {{ form.hang }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Số Lượng Nhập</label>
+                    {{ form.SOLUONGNHAP }}
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Đơn Giá Nhập</label>
+                    {{ form.DONGIANHAP }}
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Lưu</button>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{% url 'ctpn_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

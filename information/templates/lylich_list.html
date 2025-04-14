@@ -3,7 +3,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Danh sách Hợp Đồng</title>
+    <title>Danh sách Lý Lịch</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -34,60 +34,66 @@
 <div class="container mt-5">
     <div class="card shadow">
         <div class="card-header bg-primary text-white text-center fw-bold">
-            <h4>Danh sách Hợp Đồng</h4>
+            <h4>Danh sách Lý Lịch</h4>
         </div>
         <div class="card-body">
             <!-- Thanh tìm kiếm -->
             <div class="search-bar mb-3">
-                <input type="text" id="search" placeholder="🔍 Tìm kiếm theo mã hợp đồng..." onkeyup="searchFunction()">
+                <input type="text" id="search" placeholder="🔍 Tìm kiếm theo mã nhân viên..." onkeyup="searchFunction()">
             </div>
 
-            <!-- Bảng danh sách hợp đồng -->
+            <!-- Bảng danh sách lý lịch -->
             <div class="table-responsive">
-                <table id="contractTable" class="table table-bordered table-hover align-middle">
+                <table id="lylichTable" class="table table-bordered table-hover align-middle">
                     <thead class="table-primary text-center">
                         <tr>
-                            <th>Mã Hợp Đồng</th>
-                            <th>Chi Phí Tổng</th>
-                            <th>Ngày Bắt Đầu</th>
-                            <th>Ngày Kết Thúc</th>
-                            <th>Mã Nhượng Quyền</th>
-                            <th>Mã Gói</th>
+                            <th>STT</th>
+                            <th>Trình độ VH</th>
+                            <th>Dân tộc</th>
+                            <th>Tôn giáo</th>
+                            <th>Trình độ chuyên môn</th>
+                            <th>Nơi thường trú</th>
+                            <th>Nơi tạm trú</th>
+                            <th>Nơi sinh</th>
+                            <th>Mã nhân viên</th>
                             <th>Hành Động</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for hd in hopdongs %}
+                        {% for ll in lylichs %}
                             <tr>
-                                <td class="text-center">{{ hd.MAHD }}</td>
-                                <td class="text-center">{{ hd.CHIPHITONG|floatformat:0 }}</td>
-                                <td class="text-center">{{ hd.NGAYBATDAU }}</td>
-                                <td class="text-center">{{ hd.NGAYKETTHUC }}</td>
-                                <td class="text-center">{{ hd.nhuongquyen.MANHUONGQUYEN }}</td>
-                                <td class="text-center">{{ hd.goi.MAGOI }}</td>
+                                <td class="text-center">{{ ll.STT }}</td>
+                                <td class="text-center">{{ ll.TrinhDoVanHoa }}</td>
+                                <td class="text-center">{{ ll.DanToc }}</td>
+                                <td class="text-center">{{ ll.TonGiao }}</td>
+                                <td class="text-center">{{ ll.TrinhDoChuyenMon }}</td>
+                                <td class="text-center">{{ ll.NoiThuongTru }}</td>
+                                <td class="text-center">{{ ll.NoiTamTru }}</td>
+                                <td class="text-center">{{ ll.NoiSinh }}</td>
+                                <td class="text-center">{{ ll.nhanvien.MANV }}</td>
                                 <td class="text-center">
-                                    <a href="{% url 'edit_hopdong' hd.pk %}" class="btn btn-warning btn-sm btn-action me-1">
+                                    <a href="{% url 'edit_lylich' ll.pk %}" class="btn btn-warning btn-sm btn-action me-1">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
-                                    <a href="{% url 'delete_hopdong' hd.pk %}" class="btn btn-danger btn-sm btn-action"
-                                       onclick="return confirm('Bạn có chắc chắn muốn hợp đồng này không?')">
+                                    <a href="{% url 'delete_lylich' ll.pk %}" class="btn btn-danger btn-sm btn-action"
+                                       onclick="return confirm('Bạn có chắc chắn muốn xóa lý lịch này không?')">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </td>
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="7" class="text-center text-muted">Không có hợp đồng nào.</td>
+                                <td colspan="10" class="text-center text-muted">Không có lý lịch nào.</td>
                             </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
 
-            <!-- Nút Thêm hợp đồng -->
+            <!-- Nút Thêm lý lịch -->
             <div class="text-end mt-3">
-                <a href="{% url 'add_hopdong' %}" class="btn btn-success btn-add">
-                    <i class="bi bi-file-earmark-plus"></i> Thêm hợp đồng
+                <a href="{% url 'add_lylich' %}" class="btn btn-success btn-add">
+                    <i class="bi bi-file-earmark-plus"></i> Thêm lý lịch
                 </a>
             </div>
         </div>
@@ -99,11 +105,11 @@
     function searchFunction() {
         let input = document.getElementById("search");
         let filter = input.value.toUpperCase();
-        let table = document.getElementById("contractTable");
+        let table = document.getElementById("lylichTable");
         let tr = table.getElementsByTagName("tr");
 
         for (let i = 1; i < tr.length; i++) {
-            let td = tr[i].getElementsByTagName("td")[0]; // cột Mã Hợp Đồng
+            let td = tr[i].getElementsByTagName("td")[8]; // cột Mã nhân viên
             if (td) {
                 let txtValue = td.textContent || td.innerText;
                 tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";

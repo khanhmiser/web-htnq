@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Báo Cáo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Thêm Báo Cáo</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" novalidate>
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_MABAOCAO" class="form-label">Mã báo cáo</label>
+                    {{ form.MABAOCAO }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_LOAIBAOCAO" class="form-label">Loại báo cáo</label>
+                    {{ form.LOAIBAOCAO }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_NGAYBAOCAO" class="form-label">Ngày báo cáo</label>
+                    {{ form.NGAYBAOCAO }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_NOIDUNGBAOCAO" class="form-label">Nội dung báo cáo</label>
+                    {{ form.NOIDUNGBAOCAO }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_DOANHTHU" class="form-label">Doanh thu</label>
+                    {{ form.DOANHTHU }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_cuahang" class="form-label">Cửa hàng</label>
+                    {{ form.cuahang }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_xacthuc" class="form-label">Xác thực</label>
+                    {{ form.xacthuc }}
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-primary w-100">Lưu</button>
+                </div>
+
+                <div class="text-center">
+                    <a href="{% url 'baocao_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -201,25 +201,26 @@ class HANG(models.Model):
         return f"{self.MAHANG},{self.kho.MAKHO},{self.TENHANG}, {self.DONVIDOLUONG},{self.GIANHAP}, {self.GIABAN}, {self.LOAIHANG}"
 
 class NGUOITHAN(models.Model):
+    IDNT = models.IntegerField(primary_key=True)
     TENNT = models.CharField(max_length=100)
     QUANHE = models.CharField(max_length=200)
     SDTNT = models.CharField(max_length=10, null=True)
     nhanvien = models.ForeignKey(
-    NHANVIEN,
+        NHANVIEN,
         to_field='MANV',
-        db_column='MANV',  # Django sẽ hiểu là dùng MAPB từ bảng NHANVIEN
-        on_delete=models.DO_NOTHING,  # Không can thiệp vào CSDL
+        db_column='MANV',
+        on_delete=models.DO_NOTHING,
         null=True,
         blank=True,
         related_name='ds_nv'
     )
     class Meta:
-        unique_together = ['TENNT', 'QUANHE', 'nhanvien']
-        db_table = 'NGUOITHAN'  # Đảm bảo tên bảng trong cơ sở dữ liệu trùng với bảng thực tế
-        managed = False
+        db_table = 'NGUOITHAN'
+        managed = False  # Không quản lý bảng trong cơ sở dữ liệu
 
     def __str__(self):
-        return f"{self.TENNT}, {self.QUANHE}, {self.nhanvien.MANV}, {self.SDTNT}"
+        return f"{self.IDNT},{self.TENNT}, {self.QUANHE}, {self.SDTNT}, {self.nhanvien.MANV}"
+
 
 class PHIEUNHAP(models.Model):
     MAPHIEUNHAP = models.CharField(max_length=10, primary_key=True,null=False)

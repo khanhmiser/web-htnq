@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Người Thân</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center fw-bold">
+            <h4>Danh sách Người Thân</h4>
+        </div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle text-center">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>ID Người Thân</th>
+                            <th>Tên Người Thân</th>
+                            <th>Quan Hệ</th>
+                            <th>SĐT</th>
+                            <th>Mã Nhân Viên</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for nt in nguoithans %}
+                            <tr>
+                                <td>{{ nt.IDNT }}</td>
+                                <td>{{ nt.TENNT }}</td>
+                                <td>{{ nt.QUANHE }}</td>
+                                <td>{{ nt.SDTNT }}</td>
+                                <td>{{ nt.nhanvien.MANV }}</td>
+                                <td>
+                                    <a href="{% url 'edit_nguoithan' nt.pk %}" class="btn btn-warning btn-sm me-1">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="{% url 'delete_nguoithan' nt.pk %}" class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Bạn có chắc chắn muốn xóa người thân này không?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">Không có người thân nào.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-end mt-3">
+                <a href="{% url 'add_nguoithan' %}" class="btn btn-success">
+                    <i class="bi bi-person-plus-fill"></i> Thêm người thân
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

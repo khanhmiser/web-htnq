@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h4>Danh sách Hàng</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Mã Hàng</th>
+                            <th>Tên Hàng</th>
+                            <th>Đơn Vị</th>
+                            <th>Giá Nhập</th>
+                            <th>Giá Bán</th>
+                            <th>Loại</th>
+                            <th>Mã Kho</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for hang in hangs %}
+                            <tr>
+                                <td class="text-center">{{ hang.MAHANG }}</td>
+                                <td>{{ hang.TENHANG }}</td>
+                                <td class="text-center">{{ hang.DONVIDOLUONG }}</td>
+                                <td class="text-end">{{ hang.GIANHAP }}</td>
+                                <td class="text-end">{{ hang.GIABAN }}</td>
+                                <td>{{ hang.LOAIHANG }}</td>
+                                <td class="text-center">{{ hang.kho.MAKHO }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'edit_hang' hang.pk %}" class="btn btn-warning btn-sm">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="{% url 'delete_hang' hang.pk %}" class="btn btn-danger btn-sm" 
+                                       onclick="return confirm('Bạn có chắc chắn muốn xoá mặt hàng này không?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">Không có mặt hàng nào.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-end">
+                <a href="{% url 'add_hang' %}" class="btn btn-success">
+                    <i class="bi bi-plus-circle"></i> Thêm hàng mới
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

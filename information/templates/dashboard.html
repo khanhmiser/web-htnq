@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,51 +9,95 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Custom CSS -->
     <style>
+        /* General Body Styling */
         body {
             font-family: Arial, sans-serif;
             background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
         }
-        .sidebar {
-            height: 100vh;
+
+        /* Sidebar Styling */
+        .quixnav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
             background-color: #343a40;
             color: white;
-            position: fixed;
-            width: 250px;
-            padding-top: 20px;
+            padding-top: 30px;
         }
-        .sidebar-header {
-            padding: 10px 20px;
-            border-bottom: 1px solid #4b545c;
-            margin-bottom: 20px;
+
+        .quixnav-scroll {
+            overflow-y: auto;
         }
-        .sidebar-menu {
-            padding: 0;
+
+        .metismenu {
             list-style: none;
+            padding: 0;
+            margin: 0;
         }
-        .sidebar-menu li {
-            padding: 10px 20px;
-            border-bottom: 1px solid #4b545c;
+
+        .nav-label {
+            padding-left: 20px;
+            font-size: 18px;
+            color: #ccc;
         }
-        .sidebar-menu li a {
-            color: white;
-            text-decoration: none;
+
+        .nav-text {
+            font-size: 16px;
+        }
+
+        .has-arrow {
             display: block;
+            padding: 10px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
         }
-        .sidebar-menu li:hover {
+
+        .has-arrow:hover {
             background-color: #495057;
         }
-        .sidebar-menu li.active {
+
+        .has-arrow[aria-expanded="true"] {
             background-color: #007bff;
         }
+
+        .has-arrow i {
+            margin-right: 10px;
+        }
+
+        .metismenu li ul {
+            padding-left: 20px;
+            display: none;
+        }
+
+        .metismenu li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .metismenu li a:hover {
+            background-color: #495057;
+        }
+
+        /* Main Content */
         .main-content {
             margin-left: 250px;
             padding: 20px;
         }
+
         .dashboard-header {
             margin-bottom: 30px;
         }
+
+        /* Stats Card */
         .stat-card {
             background-color: white;
             border-radius: 10px;
@@ -60,64 +105,142 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .stat-card h3 {
             font-size: 16px;
             color: #555;
             margin-bottom: 10px;
         }
+
         .stat-card .value {
             font-size: 24px;
             font-weight: bold;
             color: #333;
         }
+
+        /* Section Titles */
         .section-title {
             font-size: 20px;
             font-weight: bold;
             margin: 30px 0 15px 0;
             color: #333;
         }
+
+        /* Button Group */
         .btn-group-custom {
             margin-bottom: 20px;
         }
+
         .btn-group-custom .btn {
             margin-right: 10px;
             margin-bottom: 10px;
         }
+
+        /* Table Styling */
         .table-custom {
             background-color: white;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
+        /* Footer */
         .footer {
             margin-top: 50px;
             text-align: center;
             color: #666;
             font-size: 14px;
         }
+
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
     </style>
 </head>
+
 <body>
     <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-header">
-            <h3>DANH MỤC</h3>
+    <div class="quixnav">
+        <div class="quixnav-scroll">
+            <ul class="metismenu" id="menu">
+                <li class="nav-label first">Danh mục</li>
+    
+                <!-- Dropdown Thông tin nhượng quyền -->
+                <li>
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false" onclick="toggleDropdown(this)">
+                        <i class="far fa-edit"></i><span class="nav-text">Thông tin nhượng quyền</span>
+                    </a>
+                    <ul aria-expanded="false" class="submenu">
+                        <li><a href="{% url 'bennnq_list' %}"><i class="fas fa-arrow-circle-right"></i> Bên nhận nhượng quyền</a></li>
+                        <li><a href="{% url 'hopdong_list' %}"><i class="fas fa-arrow-circle-right"></i> Hợp đồng</a></li>
+                        <li><a href="{% url 'cuahang_list' %}"><i class="fas fa-arrow-circle-right"></i> Cửa hàng nhượng quyền</a></li>
+                        <li><a href="{% url 'goi_list' %}"><i class="fas fa-arrow-circle-right"></i> Gói</a></li>
+                    </ul>
+                </li>
+    
+                <!-- Dropdown Quản lý nhượng quyền -->
+                <li>
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false" onclick="toggleDropdown(this)">
+                        <i class="fas fa-receipt"></i><span class="nav-text">Quản lý nhượng quyền</span>
+                    </a>
+                    <ul aria-expanded="false" class="submenu">
+                        <li><a href="{% url 'employee_list' %}"><i class="fas fa-arrow-circle-right"></i> Nhân viên</a></li>
+                        <li><a href="{% url 'lylich_list' %}"><i class="fas fa-arrow-circle-right"></i> Lý lịch</a></li>
+                        <li><a href="{% url 'nguoithan_list' %}"><i class="fas fa-arrow-circle-right"></i> Người thân</a></li>
+                    </ul>
+                </li>
+    
+                <!-- Dropdown Quản lý kho hàng -->
+                <li>
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false" onclick="toggleDropdown(this)">
+                        <i class="fas fa-poll"></i><span class="nav-text">Quản lý kho hàng</span>
+                    </a>
+                    <ul aria-expanded="false" class="submenu">
+                        <li><a href="{% url 'kho_list' %}"><i class="fas fa-arrow-circle-right"></i> Kho</a></li>
+                        <li><a href="{% url 'phieunhap_list' %}"><i class="fas fa-arrow-circle-right"></i> Phiếu nhập</a></li>
+                        <li><a href="{% url 'phieuxuat_list' %}"><i class="fas fa-arrow-circle-right"></i> Phiếu xuất</a></li>
+                        <li><a href="{% url 'hang_list' %}"><i class="fas fa-arrow-circle-right"></i> Hàng</a></li>
+                        
+                    </ul>
+                </li>
+    
+                <!-- Dropdown Xem báo cáo -->
+                <li>
+                    <a class="has-arrow" href="javascript:void(0)" aria-expanded="false" onclick="toggleDropdown(this)">
+                        <i class="fas fa-receipt"></i><span class="nav-text">Xem báo cáo</span>
+                    </a>
+                    <ul aria-expanded="false" class="submenu">
+                        <li><a href="{% url 'baocao_list' %}"><i class="fas fa-arrow-circle-right"></i> Báo cáo</a></li>
+                        <li><a href="{% url 'bangxacthuc_list' %}"><i class="fas fa-arrow-circle-right"></i> Bảng xác thực</a></li>
+                    </ul>
+                </li>
+    
+            </ul>
         </div>
-        <ul class="sidebar-menu">
-            <li class="active">
-                <a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-            </li>
-            <li>
-                <a href="{% url 'employee_list' %}"><i class="fas fa-edit"></i> Nhân viên</a>
-            </li>
-            <li>
-                <a href="{% url 'hopdong_list' %}"><i class="fas fa-shopping-cart"></i> Hợp Đồng</a>
-            </li>
-            <li>
-                <a href="#"><i class="fas fa-chart-bar"></i> Thống kê</a>
-            </li>
-        </ul>
     </div>
+    
+    <!-- JavaScript để toggle dropdown -->
+    <script>
+        // Toggle dropdown khi nhấn vào menu
+        function toggleDropdown(element) {
+            var submenu = element.nextElementSibling;
+            var isExpanded = element.getAttribute('aria-expanded') === 'true';
+            
+            // Kiểm tra xem dropdown đã được mở chưa
+            if (isExpanded) {
+                submenu.style.display = 'none';
+                element.setAttribute('aria-expanded', 'false');
+            } else {
+                submenu.style.display = 'block';
+                element.setAttribute('aria-expanded', 'true');
+            }
+        }
+    </script>
+    
+
 
     <!-- Main Content -->
     <div class="main-content">
@@ -129,7 +252,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="stat-card">
-                    <h3>Tổng số bảo đơn trong ngày</h3>
+                    <h3>Tổng số hóa đơn trong ngày</h3>
                     <div class="value">500</div>
                 </div>
             </div>
@@ -141,69 +264,31 @@
             </div>
             <div class="col-md-3">
                 <div class="stat-card">
-                    <h3>Tổng số đơn hàng trong phòng</h3>
-                    <div class="value">5000</div>
+                    <h3>Tổng cửa hàng</h3>
+                    <div class="value">150</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stat-card">
-                    <h3>Tổng số khách hàng theo tuần</h3>
-                    <div class="value">650</div>
+                    <h3>Tổng nhân viên</h3>
+                    <div class="value">500</div>
                 </div>
             </div>
         </div>
 
-        <hr>
-
-        <!-- Update Section -->
-        <h2 class="section-title">Cập Nhật Thông Tin Nhóm Mặt Hàng</h2>
-        
-        <h3>Mã nhiệm</h3>
-        <div class="btn-group-custom">
-            <button type="button" class="btn btn-primary">Thêm</button>
-            <button type="button" class="btn btn-danger">Xóa</button>
-            <button type="button" class="btn btn-warning">Sốn</button>
-            <button type="button" class="btn btn-success">Lưu</button>
-            <button type="button" class="btn btn-info">Các nhân</button>
-        </div>
-
-        <!-- Table Section -->
-        <h3>Bảng Thông Tin Các Loại Hàng</h3>
-        <div class="table-responsive">
-            <table class="table table-custom table-striped">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Mã nhiệm</th>
-                        <th>Tên nhiệm</th>
-                        <th>SÓA</th>
-                        <th>SÓA</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>HTT</td>
-                        <td>Hoa tươi</td>
-                        <td>Loại hội</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>HĐ</td>
-                        <td>Hoa giấy</td>
-                        <td>Loại hội</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>HTTP</td>
-                        <td>Hoa trang trí</td>
-                        <td>Loại hội</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Chart Section -->
+        <div class="section-title">Biểu đồ thống kê</div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <canvas id="chart2"></canvas>
+                </div>
+            </div>
         </div>
 
         <!-- Footer -->
@@ -214,5 +299,34 @@
 
     <!-- Bootstrap 5 JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        var ctx1 = document.getElementById('chart1').getContext('2d');
+        var chart1 = new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['T1', 'T2', 'T3', 'T4'],
+                datasets: [{
+                    label: 'Số hóa đơn',
+                    data: [30, 70, 50, 90],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        var ctx2 = document.getElementById('chart2').getContext('2d');
+        var chart2 = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: ['Cửa hàng A', 'Cửa hàng B', 'Cửa hàng C'],
+                datasets: [{
+                    data: [300, 400, 200],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                }]
+            }
+        });
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Xác Thực</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-success text-white text-center fw-bold">
+            <h4>Thêm Xác Thực</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <!-- Mã Xác Thực -->
+                <div class="mb-3">
+                    <label for="{{ form.MaXacThuc.id_for_label }}" class="form-label">Mã Xác Thực</label>
+                    {{ form.MaXacThuc }}
+                    {% if form.MaXacThuc.errors %}
+                        <div class="text-danger small">{{ form.MaXacThuc.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Ghi Chú -->
+                <div class="mb-3">
+                    <label for="{{ form.GhiChuXT.id_for_label }}" class="form-label">Ghi Chú</label>
+                    {{ form.GhiChuXT }}
+                    {% if form.GhiChuXT.errors %}
+                        <div class="text-danger small">{{ form.GhiChuXT.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Tình Trạng -->
+                <div class="mb-3 form-check">
+                    {{ form.TinhTrangXT }}
+                    <label for="{{ form.TinhTrangXT.id_for_label }}" class="form-check-label">Tình Trạng Xác Thực</label>
+                    {% if form.TinhTrangXT.errors %}
+                        <div class="text-danger small">{{ form.TinhTrangXT.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Ngày Xác Thực -->
+                <div class="mb-3">
+                    <label for="{{ form.NgayXT.id_for_label }}" class="form-label">Ngày Xác Thực</label>
+                    {{ form.NgayXT }}
+                    {% if form.NgayXT.errors %}
+                        <div class="text-danger small">{{ form.NgayXT.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Nhân Viên -->
+                <div class="mb-3">
+                    <label for="{{ form.nhanvien.id_for_label }}" class="form-label">Nhân Viên Xác Thực</label>
+                    {{ form.nhanvien }}
+                    {% if form.nhanvien.errors %}
+                        <div class="text-danger small">{{ form.nhanvien.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-success">Thêm Xác Thực</button>
+                </div>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="{% url 'bangxacthuc_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

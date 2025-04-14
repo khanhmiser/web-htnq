@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Người Thân</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Thêm Người Thân</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" novalidate>
+                {% csrf_token %}
+
+                <div class="mb-3">
+                    <label for="id_TENNT" class="form-label">Tên người thân</label>
+                    {{ form.TENNT }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_QUANHE" class="form-label">Quan hệ</label>
+                    {{ form.QUANHE }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_SDTNT" class="form-label">Số điện thoại</label>
+                    {{ form.SDTNT }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_nhanvien" class="form-label">Mã nhân viên</label>
+                    {{ form.nhanvien }}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_IDNT" class="form-label">ID người thân</label>
+                    {{ form.IDNT }}  <!-- Display the ID field -->
+                </div>
+
+                <div class="d-grid mb-3">
+                    <button type="submit" class="btn btn-success w-100">Lưu</button>
+                </div>
+
+                <div class="text-center">
+                    <a href="{% url 'nguoithan_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

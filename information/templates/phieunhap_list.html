@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Phiếu Nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center fw-bold">
+            <h4>Danh sách Phiếu Nhập</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Mã Phiếu Nhập</th>
+                            <th>Ngày Nhập</th>
+                            <th>Mã Nhân Viên</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pn in phieunhaps %}
+                            <tr>
+                                <td class="text-center">{{ pn.MAPHIEUNHAP }}</td>
+                                <td class="text-center">{{ pn.NGAYNHAP }}</td>
+                                <td class="text-center">{{ pn.nhanvien.MANV }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'edit_phieunhap' pn.pk %}" class="btn btn-warning btn-sm me-1">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="{% url 'delete_phieunhap' pn.pk %}" class="btn btn-danger btn-sm"
+                                       onclick="return confirm('Bạn có chắc chắn muốn xoá phiếu nhập này không?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center text-muted">Không có phiếu nhập nào.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-end mt-3">
+                <a href="{% url 'add_phieunhap' %}" class="btn btn-success">
+                    <i class="bi bi-file-earmark-plus"></i> Thêm phiếu nhập
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

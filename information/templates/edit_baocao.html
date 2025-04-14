@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Sửa Báo Cáo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-dark">
+            <h4>Sửa Báo Cáo</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="{{ form.MABAOCAO.id_for_label }}" class="form-label">Mã Báo Cáo</label>
+                    {{ form.MABAOCAO }}
+                    {% if form.MABAOCAO.errors %}
+                        <div class="text-danger small">{{ form.MABAOCAO.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.LOAIBAOCAO.id_for_label }}" class="form-label">Loại Báo Cáo</label>
+                    {{ form.LOAIBAOCAO }}
+                    {% if form.LOAIBAOCAO.errors %}
+                        <div class="text-danger small">{{ form.LOAIBAOCAO.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.NGAYBAOCAO.id_for_label }}" class="form-label">Ngày Báo Cáo</label>
+                    {{ form.NGAYBAOCAO }}
+                    {% if form.NGAYBAOCAO.errors %}
+                        <div class="text-danger small">{{ form.NGAYBAOCAO.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.NOIDUNGBAOCAO.id_for_label }}" class="form-label">Nội Dung Báo Cáo</label>
+                    {{ form.NOIDUNGBAOCAO }}
+                    {% if form.NOIDUNGBAOCAO.errors %}
+                        <div class="text-danger small">{{ form.NOIDUNGBAOCAO.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.DOANHTHU.id_for_label }}" class="form-label">Doanh Thu</label>
+                    {{ form.DOANHTHU }}
+                    {% if form.DOANHTHU.errors %}
+                        <div class="text-danger small">{{ form.DOANHTHU.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.cuahang.id_for_label }}" class="form-label">Cửa Hàng Nhượng Quyền</label>
+                    {{ form.cuahang }}
+                    {% if form.cuahang.errors %}
+                        <div class="text-danger small">{{ form.cuahang.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="{{ form.xacthuc.id_for_label }}" class="form-label">Bảng Xác Thực</label>
+                    {{ form.xacthuc }}
+                    {% if form.xacthuc.errors %}
+                        <div class="text-danger small">{{ form.xacthuc.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                </div>
+            </form>
+            <div class="text-center mt-3">
+                <a href="{% url 'baocao_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+

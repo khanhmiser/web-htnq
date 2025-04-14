@@ -14,27 +14,68 @@
             <h3 class="mb-0">Sửa Hợp Đồng</h3>
         </div>
         <div class="card-body">
-            <form method="POST">
+            <form method="POST" novalidate>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary w-100">Cập nhật</button>
+
+                <div class="mb-3">
+                    <label for="id_MAHD" class="form-label">Mã Hợp Đồng</label>
+                    {{ form.MAHD }}
+                    {% if form.MAHD.errors %}
+                        <div class="text-danger small">{{ form.MAHD.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_CHIPHITONG" class="form-label">Chi Phí Tổng</label>
+                    {{ form.CHIPHITONG }}
+                    {% if form.CHIPHITONG.errors %}
+                        <div class="text-danger small">{{ form.CHIPHITONG.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_NGAYBATDAU" class="form-label">Ngày Bắt Đầu</label>
+                    {{ form.NGAYBATDAU }}
+                    {% if form.NGAYBATDAU.errors %}
+                        <div class="text-danger small">{{ form.NGAYBATDAU.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_NGAYKETTHUC" class="form-label">Ngày Kết Thúc</label>
+                    {{ form.NGAYKETTHUC }}
+                    {% if form.NGAYKETTHUC.errors %}
+                        <div class="text-danger small">{{ form.NGAYKETTHUC.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_goi" class="form-label">Gói Nhượng Quyền</label>
+                    {{ form.goi }}
+                    {% if form.goi.errors %}
+                        <div class="text-danger small">{{ form.goi.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_nhuongquyen" class="form-label">Mã Bên Nhận Nhượng Quyền</label>
+                    {{ form.nhuongquyen }}
+                    {% if form.nhuongquyen.errors %}
+                        <div class="text-danger small">{{ form.nhuongquyen.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary w-100">Cập nhật</button>
+                </div>
+
             </form>
         </div>
         <div class="card-footer text-center">
-            <a href="{% url 'hopdong_list' %}" class="btn btn-light">← Trở lại danh sách</a>
+            <a href="{% url 'hopdong_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
         </div>
     </div>
 </div>
 
 </body>
 </html>
-
-

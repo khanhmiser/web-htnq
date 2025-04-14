@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Cửa Hàng Nhượng Quyền</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+        .btn-action {
+            border-radius: 50px;
+            padding: 5px 12px;
+        }
+        .btn-add {
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center fw-bold">
+            <h4>Danh sách Cửa Hàng Nhượng Quyền</h4>
+        </div>
+        <div class="card-body">
+            <!-- Thanh tìm kiếm -->
+            <div class="search-bar mb-3">
+                <input type="text" id="search" placeholder="🔍 Tìm kiếm theo mã cửa hàng..." onkeyup="searchFunction()">
+            </div>
+
+            <!-- Bảng danh sách cửa hàng -->
+            <div class="table-responsive">
+                <table id="storeTable" class="table table-bordered table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Mã Cửa Hàng</th>
+                            <th>Địa Chỉ</th>
+                            <th>Ngày Khai Trương</th>
+                            <th>Mã Số Thuế</th>
+                            <th>Mã Nhượng Quyền</th>
+                            <th>Mã Hợp Đồng</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ch in cuahangs %}
+                            <tr>
+                                <td class="text-center">{{ ch.MACH }}</td>
+                                <td>{{ ch.DIACHI }}</td>
+                                <td class="text-center">{{ ch.NGAYKHAITRUONG }}</td>
+                                <td class="text-center">{{ ch.MASOTHUE }}</td>
+                                <td class="text-center">{{ ch.nhuongquyen.MANHUONGQUYEN }}</td>
+                                <td class="text-center">{{ ch.hopdong.MAHD }}</td>
+                                <td class="text-center">
+                                    <a href="{% url 'edit_cuahang' ch.pk %}" class="btn btn-warning btn-sm btn-action me-1">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a href="{% url 'delete_cuahang' ch.pk %}" class="btn btn-danger btn-sm btn-action"
+                                       onclick="return confirm('Bạn có chắc chắn muốn xóa cửa hàng này không?')">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">Không có cửa hàng nào.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Nút Thêm cửa hàng -->
+            <div class="text-end mt-3">
+                <a href="{% url 'add_cuahang' %}" class="btn btn-success btn-add">
+                    <i class="bi bi-file-earmark-plus"></i> Thêm cửa hàng
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    function searchFunction() {
+        let input = document.getElementById("search");
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("storeTable");
+        let tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName("td")[0]; // cột Mã Cửa Hàng
+            if (td) {
+                let txtValue = td.textContent || td.innerText;
+                tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    }
+</script>
+</body>
+</html>
