@@ -11,6 +11,7 @@ from information.models import PHIEUNHAP
 from information.models import PHIEUXUAT
 from information.models import HANG
 from information.models import CTPN
+from information.models import CTPX
 from information.models import BAOCAO
 from information.models import BANGXACTHUC
 
@@ -188,7 +189,7 @@ class PhieuXuatForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         # Tùy chỉnh label hiển thị cho cửa hàng nhượng quyền
-        self.fields['cuahang'].label_from_instance = lambda obj: f"{obj.MACH} - {obj.TENCH}"
+        self.fields['cuahang'].label_from_instance = lambda obj: f"{obj.MACH}"
 
 class HangForm(forms.ModelForm):
     class Meta:
@@ -226,6 +227,25 @@ class CTPNForm(forms.ModelForm):
 
         # Tùy chỉnh label hiển thị cho trường hang
         self.fields['hang'].label_from_instance = lambda obj: f"{obj.MAHANG} - {obj.TENHANG}"
+
+class CTPXForm(forms.ModelForm):
+    class Meta:
+        model = CTPX
+        fields = '__all__'
+        widgets = {
+            'MAPHIEUXUAT': forms.TextInput(attrs={'class': 'form-control'}),
+            'SOLUONGXUAT': forms.NumberInput(attrs={'class': 'form-control'}),
+            'DONGIAXUAT': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'DONVITINH': forms.TextInput(attrs={'class': 'form-control'}),
+            'GIAMGIABAN': forms.NumberInput(attrs={'class': 'form-control', 'step': '0.01'}),
+            'MAHANG': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # Tùy chỉnh label hiển thị cho trường MAHANG (liên kết với bảng HANG)
+        self.fields['MAHANG'].label_from_instance = lambda obj: f"{obj.MAHANG} - {obj.TENHANG}"
 
 class BaoCaoForm(forms.ModelForm):
     class Meta:

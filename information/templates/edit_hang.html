@@ -4,35 +4,125 @@
 <head>
     <meta charset="UTF-8">
     <title>Sửa Hàng</title>
+    <!-- Linking Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Adding Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<style>
+    /* Đóng băng navbar */
+    .navbar-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030; /* Luôn nằm trên cùng */
+    }
+
+    /* Khoảng trống cho nội dung dưới */
+    body {
+        padding-top: 56px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar cố định -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">
+        <i class="fas fa-home"></i> Trang Chủ
+    </a>
+</div>
+</nav>
+
+<!-- Main container for the page -->
 <div class="container mt-5">
     <div class="card shadow">
+        <!-- Card header with title -->
         <div class="card-header bg-primary text-white">
-            <h4>Sửa Hàng</h4>
+            <h3 class="mb-0">Sửa Hàng</h3>
         </div>
         <div class="card-body">
-            <form method="POST">
+            <!-- Form to edit the product, method POST ensures form data is sent securely -->
+            <form method="POST" novalidate>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+
+                <!-- Field for Mã Hàng -->
+                <div class="mb-3">
+                    <label for="id_MAHANG" class="form-label">Mã Hàng</label>
+                    {{ form.MAHANG }}  <!-- Displaying the form field for Mã Hàng -->
+                    {% if form.MAHANG.errors %}
+                        <div class="text-danger small">{{ form.MAHANG.errors }}</div> <!-- Displaying errors for Mã Hàng -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Tên Hàng -->
+                <div class="mb-3">
+                    <label for="id_TENHANG" class="form-label">Tên Hàng</label>
+                    {{ form.TENHANG }}  <!-- Displaying the form field for Tên Hàng -->
+                    {% if form.TENHANG.errors %}
+                        <div class="text-danger small">{{ form.TENHANG.errors }}</div> <!-- Displaying errors for Tên Hàng -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Đơn Vị Đo Lường -->
+                <div class="mb-3">
+                    <label for="id_DONVIDOLUONG" class="form-label">Đơn Vị Đo Lường</label>
+                    {{ form.DONVIDOLUONG }}  <!-- Displaying the form field for Đơn Vị Đo Lường -->
+                    {% if form.DONVIDOLUONG.errors %}
+                        <div class="text-danger small">{{ form.DONVIDOLUONG.errors }}</div> <!-- Displaying errors for Đơn Vị Đo Lường -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Giá Nhập -->
+                <div class="mb-3">
+                    <label for="id_GIANHAP" class="form-label">Giá Nhập</label>
+                    {{ form.GIANHAP }}  <!-- Displaying the form field for Giá Nhập -->
+                    {% if form.GIANHAP.errors %}
+                        <div class="text-danger small">{{ form.GIANHAP.errors }}</div> <!-- Displaying errors for Giá Nhập -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Giá Bán -->
+                <div class="mb-3">
+                    <label for="id_GIABAN" class="form-label">Giá Bán</label>
+                    {{ form.GIABAN }}  <!-- Displaying the form field for Giá Bán -->
+                    {% if form.GIABAN.errors %}
+                        <div class="text-danger small">{{ form.GIABAN.errors }}</div> <!-- Displaying errors for Giá Bán -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Loại Hàng -->
+                <div class="mb-3">
+                    <label for="id_LOAIHANG" class="form-label">Loại Hàng</label>
+                    {{ form.LOAIHANG }}  <!-- Displaying the form field for Loại Hàng -->
+                    {% if form.LOAIHANG.errors %}
+                        <div class="text-danger small">{{ form.LOAIHANG.errors }}</div> <!-- Displaying errors for Loại Hàng -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Kho (Dropdown) -->
+                <div class="mb-3">
+                    <label for="id_kho" class="form-label">Kho</label>
+                    {{ form.kho }}  <!-- Displaying the form field for Kho (Dropdown) -->
+                    {% if form.kho.errors %}
+                        <div class="text-danger small">{{ form.kho.errors }}</div> <!-- Displaying errors for Kho -->
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    <button type="submit" class="btn btn-primary w-100">Cập nhật</button>  <!-- Submit the form to update the product -->
                 </div>
             </form>
-            <div class="text-center mt-3">
-                <a href="{% url 'hang_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
-            </div>
+        </div>
+        <!-- Footer with link to go back to the list of products -->
+        <div class="card-footer text-center">
+            <a href="{% url 'hang_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
         </div>
     </div>
 </div>
+
 </body>
 </html>

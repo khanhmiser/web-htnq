@@ -5,8 +5,32 @@
     <meta charset="UTF-8">
     <title>Sửa Chi Tiết Phiếu Nhập</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .navbar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+
+        body {
+            padding-top: 56px;
+        }
+    </style>
 </head>
 <body>
+
+<!-- Navbar cố định -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">
+            <i class="fas fa-home"></i> Trang Chủ
+        </a>
+    </div>
+</nav>
+
 <div class="container mt-5">
     <div class="card shadow">
         <div class="card-header bg-primary text-white">
@@ -15,24 +39,54 @@
         <div class="card-body">
             <form method="POST">
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
+
+                <!-- Mã Phiếu Nhập -->
+                <div class="mb-3">
+                    <label for="{{ form.MAPHIEUNHAP.id_for_label }}" class="form-label">Mã Phiếu Nhập</label>
+                    {{ form.MAPHIEUNHAP }}
+                    {% if form.MAPHIEUNHAP.errors %}
+                        <div class="text-danger small">{{ form.MAPHIEUNHAP.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Số Lượng Nhập -->
+                <div class="mb-3">
+                    <label for="{{ form.SOLUONGNHAP.id_for_label }}" class="form-label">Số Lượng Nhập</label>
+                    {{ form.SOLUONGNHAP }}
+                    {% if form.SOLUONGNHAP.errors %}
+                        <div class="text-danger small">{{ form.SOLUONGNHAP.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Đơn Giá Nhập -->
+                <div class="mb-3">
+                    <label for="{{ form.DONGIANHAP.id_for_label }}" class="form-label">Đơn Giá Nhập</label>
+                    {{ form.DONGIANHAP }}
+                    {% if form.DONGIANHAP.errors %}
+                        <div class="text-danger small">{{ form.DONGIANHAP.errors }}</div>
+                    {% endif %}
+                </div>
+
+                <!-- Hàng -->
+                <div class="mb-3">
+                    <label for="{{ form.hang.id_for_label }}" class="form-label">Hàng</label>
+                    {{ form.hang }}
+                    {% if form.hang.errors %}
+                        <div class="text-danger small">{{ form.hang.errors }}</div>
+                    {% endif %}
+                </div>
+
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Cập nhật</button>
                 </div>
             </form>
+
             <div class="text-center mt-3">
                 <a href="{% url 'ctpn_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
             </div>
         </div>
     </div>
 </div>
+
 </body>
 </html>

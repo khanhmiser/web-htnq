@@ -4,33 +4,90 @@
 <head>
     <meta charset="UTF-8">
     <title>Sửa Kho</title>
+    <!-- Linking Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Adding Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<style>
+    /* Đóng băng navbar */
+    .navbar-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030; /* Luôn nằm trên cùng */
+    }
+
+    /* Khoảng trống cho nội dung dưới */
+    body {
+        padding-top: 56px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar cố định -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">
+        <i class="fas fa-home"></i> Trang Chủ
+    </a>
+</div>
+</nav>
+
+
+<!-- Main container for the page -->
 <div class="container mt-5">
     <div class="card shadow">
-        <div class="card-header bg-warning text-white">
+        <!-- Card header with title -->
+        <div class="card-header bg-primary text-white">
             <h3 class="mb-0">Sửa Kho</h3>
         </div>
         <div class="card-body">
-            <form method="POST">
+            <!-- Form to edit the store's information, method POST ensures form data is sent securely -->
+            <form method="POST" novalidate>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-warning w-100">Cập nhật</button>
+
+                <!-- Field for Mã Kho -->
+                <div class="mb-3">
+                    <label for="id_MAKHO" class="form-label">Mã Kho</label>
+                    {{ form.MAKHO }}  <!-- Displaying the form field for Mã Kho -->
+                    {% if form.MAKHO.errors %}
+                        <div class="text-danger small">{{ form.MAKHO.errors }}</div> <!-- Displaying errors for Mã Kho -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Tên Kho -->
+                <div class="mb-3">
+                    <label for="id_TENKHO" class="form-label">Tên Kho</label>
+                    {{ form.TENKHO }}  <!-- Displaying the form field for Tên Kho -->
+                    {% if form.TENKHO.errors %}
+                        <div class="text-danger small">{{ form.TENKHO.errors }}</div> <!-- Displaying errors for Tên Kho -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Địa Chỉ -->
+                <div class="mb-3">
+                    <label for="id_DIACHI" class="form-label">Địa Chỉ</label>
+                    {{ form.DIACHI }}  <!-- Displaying the form field for Địa Chỉ -->
+                    {% if form.DIACHI.errors %}
+                        <div class="text-danger small">{{ form.DIACHI.errors }}</div> <!-- Displaying errors for Địa Chỉ -->
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary w-100">Cập nhật</button>  <!-- Submit the form to update the store information -->
+                </div>
             </form>
         </div>
+        <!-- Footer with link to go back to the list of stores -->
         <div class="card-footer text-center">
-            <a href="{% url 'kho_list' %}" class="btn btn-light">← Trở lại danh sách</a>
+            <a href="{% url 'kho_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
         </div>
     </div>
 </div>
+
 </body>
 </html>

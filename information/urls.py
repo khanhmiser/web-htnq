@@ -64,7 +64,10 @@ urlpatterns = [
     path('ctpn/edit/<str:pk>/', views.edit_ctpn, name='edit_ctpn'),
     path('ctpn/delete/<str:pk>/', views.delete_ctpn, name='delete_ctpn'),
     #CTPX
-    
+    path('dashboard/ctpx/', views.ctpx_list, name='ctpx_list'),
+    path('ctpx/add', views.add_ctpx, name='add_ctpx'),
+    path('ctpx/edit/<str:pk>/', views.edit_ctpx, name='edit_ctpx'),
+    path('ctpx/delete/<str:pk>/', views.delete_ctpx, name='delete_ctpx'),
     #BAOCAO
     path('dashboard/baocao/', views.baocao_list, name='baocao_list'),
     path('baocao/add', views.add_baocao, name='add_baocao'),

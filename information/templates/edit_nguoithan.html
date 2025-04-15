@@ -5,31 +5,105 @@
     <meta charset="UTF-8">
     <title>Sửa Người Thân</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Adding Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
 
+<!-- Navbar with home icon and link to dashboard -->
+    
+<style>
+    /* Đóng băng navbar */
+    .navbar-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030; /* Luôn nằm trên cùng */
+    }
+
+    /* Khoảng trống cho nội dung dưới */
+    body {
+        padding-top: 56px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar cố định -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">
+        <i class="fas fa-home"></i> Trang Chủ
+    </a>
+</div>
+</nav>
+<!-- Main container for the page -->
 <div class="container mt-5">
     <div class="card shadow">
-        <div class="card-header bg-warning text-white">
-            <h3 class="mb-0">Sửa Thông Tin Người Thân</h3>
+        <!-- Card header with title -->
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Sửa Người Thân Nhân Viên</h3>
         </div>
         <div class="card-body">
-            <form method="POST">
+            <!-- Form to edit the employee's relative information, method POST ensures form data is sent securely -->
+            <form method="POST" novalidate>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-warning w-100">Cập nhật</button>
+
+                <!-- Field for ID Người Thân -->
+                <div class="mb-3">
+                    <label for="id_IDNT" class="form-label">ID Người Thân</label>
+                    {{ form.IDNT }}  <!-- Displaying the form field for ID Người Thân -->
+                    {% if form.IDNT.errors %}
+                        <div class="text-danger small">{{ form.IDNT.errors }}</div> <!-- Displaying errors for ID Người Thân -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Tên Người Thân -->
+                <div class="mb-3">
+                    <label for="id_TENNT" class="form-label">Tên Người Thân</label>
+                    {{ form.TENNT }}  <!-- Displaying the form field for Tên Người Thân -->
+                    {% if form.TENNT.errors %}
+                        <div class="text-danger small">{{ form.TENNT.errors }}</div> <!-- Displaying errors for Tên Người Thân -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Quan Hệ -->
+                <div class="mb-3">
+                    <label for="id_QUANHE" class="form-label">Quan Hệ</label>
+                    {{ form.QUANHE }}  <!-- Displaying the form field for Quan Hệ -->
+                    {% if form.QUANHE.errors %}
+                        <div class="text-danger small">{{ form.QUANHE.errors }}</div> <!-- Displaying errors for Quan Hệ -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for SĐT Người Thân -->
+                <div class="mb-3">
+                    <label for="id_SDTNT" class="form-label">SĐT Người Thân</label>
+                    {{ form.SDTNT }}  <!-- Displaying the form field for SĐT Người Thân -->
+                    {% if form.SDTNT.errors %}
+                        <div class="text-danger small">{{ form.SDTNT.errors }}</div> <!-- Displaying errors for SĐT Người Thân -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Nhân Viên (Dropdown) -->
+                <div class="mb-3">
+                    <label for="id_nhanvien" class="form-label">Nhân Viên</label>
+                    {{ form.nhanvien }}  <!-- Displaying the form field for Nhân Viên -->
+                    {% if form.nhanvien.errors %}
+                        <div class="text-danger small">{{ form.nhanvien.errors }}</div> <!-- Displaying errors for Nhân Viên -->
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary w-100">Cập nhật</button>  <!-- Submit the form to update the relative information -->
+                </div>
             </form>
         </div>
+        <!-- Footer with link to go back to the list of employee relatives -->
         <div class="card-footer text-center">
-            <a href="{% url 'nguoithan_list' %}" class="btn btn-light">← Trở lại danh sách</a>
+            <a href="{% url 'nguoithan_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
         </div>
     </div>
 </div>

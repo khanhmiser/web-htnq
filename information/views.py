@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Count
 from .models import NHANVIEN
 from .models import HOPDONG
 from .models import BAOCAO
@@ -17,6 +18,7 @@ from .models import KHO
 from .models import PHIEUNHAP
 from .models import HANG
 from .models import CTPN
+from .models import CTPX
 from .models import BAOCAO
 from .models import PHIEUXUAT
 from .models import BANGXACTHUC
@@ -32,6 +34,7 @@ from information.form.forms import PhieuNhapForm
 from information.form.forms import PhieuXuatForm
 from information.form.forms import HangForm
 from information.form.forms import CTPNForm
+from information.form.forms import CTPXForm
 from information.form.forms import BaoCaoForm
 from information.form.forms import BangXacThucForm
 
@@ -438,6 +441,38 @@ def delete_ctpn(request,pk):
     ctpn.delete()
     return redirect('ctpn_list')
 
+#CTPX
+def ctpx_list(request):
+    ctpxs = CTPX.objects.all()
+    return render(request, 'ctpx_list.html', {'ctpxs': ctpxs})
+
+def add_ctpx(request):
+    if request.method == 'POST':
+        form = CTPXForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('ctpx_list')
+    else:
+        form = CTPXForm()
+    return render(request, 'add_ctpx.html', {'form': form})
+
+def edit_ctpx(request, pk):
+    ctpx = get_object_or_404(CTPX, pk=pk)
+    if request.method == 'POST':
+        form = CTPXForm(request.POST, instance=ctpx)
+        if form.is_valid():
+            form.save()
+            return redirect('ctpx_list')
+    else:
+        form = CTPXForm(instance=ctpx)
+    return render(request, 'edit_ctpx.html', {'form': form})
+
+def delete_ctpx(request,pk):
+    ctpx = get_object_or_404(CTPX, pk=pk)
+    ctpx.delete()
+    return redirect('ctpx_list')
+
+
 #BAOCAO
 def baocao_list(request):
     baocaos = BAOCAO.objects.all()
@@ -499,3 +534,21 @@ def delete_bangxacthuc(request,pk):
     bangxacthuc = get_object_or_404(BANGXACTHUC, pk=pk)
     bangxacthuc.delete()
     return redirect('bangxacthuc_list')
+
+#DASHBOARD
+
+
+
+
+def dashboard_view(request):
+    tong_cuahang = CUAHANGNHUONGQUYEN.MACH.count()
+    tong_nhanvien = NHANVIEN.objects.count()
+
+    
+
+    context = {
+        'tong_cuahang': tong_cuahang,
+        'tong_nhanvien': tong_nhanvien,
+    }
+
+    return render(request, 'dashboard.html', context)

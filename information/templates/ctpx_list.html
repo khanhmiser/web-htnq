@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Chi Tiết Phiếu Xuất</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 56px;
+        }
+        .navbar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+        .table th {
+            background-color: #343a40;
+            color: white;
+        }
+        .btn-action {
+            border-radius: 50px;
+            padding: 5px 12px;
+        }
+        .btn-add {
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar cố định -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'dashboard' %}">
+            <i class="fas fa-home"></i> Trang Chủ
+        </a>
+    </div>
+</nav>
+
+<!-- Nội dung chính -->
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center fw-bold">
+            <h4>Danh sách Chi Tiết Phiếu Xuất</h4>
+        </div>
+        <div class="card-body">
+            <!-- Thanh tìm kiếm -->
+            <div class="search-bar mb-3">
+                <input type="text" id="search" placeholder="🔍 Tìm kiếm theo mã phiếu xuất..." onkeyup="searchFunction()">
+            </div>
+
+            <!-- Bảng danh sách -->
+            <div class="table-responsive">
+                <table id="ctpxTable" class="table table-bordered table-hover align-middle">
+                    <thead class="table-primary text-center">
+                        <tr>
+                            <th>Mã Phiếu Xuất</th>
+                            <th>Mã Hàng</th>
+                            <th>Số Lượng Xuất</th>
+                            <th>Đơn Giá Xuất</th>
+                            <th>Đơn Vị Tính</th>
+                            <th>Giảm Giá Bán</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for ct in ctpxs %}
+                        <tr>
+                            <td class="text-center">{{ ct.MAPHIEUXUAT }}</td>
+                            <td class="text-center">{{ ct.MAHANG.MAHANG }}</td>
+                            <td class="text-center">{{ ct.SOLUONGXUAT }}</td>
+                            <td class="text-center">{{ ct.DONGIAXUAT }}</td>
+                            <td class="text-center">{{ ct.DONVITINH }}</td>
+                            <td class="text-center">{{ ct.GIAMGIABAN|default:"0" }}</td>
+                            <td class="text-center">
+                                <a href="{% url 'edit_ctpx' ct.pk %}" class="btn btn-warning btn-sm btn-action me-1">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                                <a href="{% url 'delete_ctpx' ct.pk %}" class="btn btn-danger btn-sm btn-action"
+                                   onclick="return confirm('Bạn có chắc chắn muốn xóa chi tiết phiếu xuất này không?')">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center text-muted">Không có dữ liệu chi tiết phiếu xuất.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Nút thêm -->
+            <div class="text-end mt-3">
+                <a href="{% url 'add_ctpx' %}" class="btn btn-success btn-add">
+                    <i class="bi bi-file-earmark-plus"></i> Thêm chi tiết phiếu xuất
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JavaScript tìm kiếm -->
+<script>
+    function searchFunction() {
+        let input = document.getElementById("search");
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("ctpxTable");
+        let tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName("td")[0]; // cột Mã Phiếu Xuất
+            if (td) {
+                let txtValue = td.textContent || td.innerText;
+                tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    }
+</script>
+</body>
+</html>

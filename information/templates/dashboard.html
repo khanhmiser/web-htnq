@@ -7,10 +7,13 @@
     <title>Dashboard</title>
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+     <!-- FONT Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+
     <!-- Custom CSS -->
     <style>
         /* General Body Styling */
@@ -159,9 +162,13 @@
             width: 100%;
         }
     </style>
+    <!-- Adding Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
+    
+   
     <!-- Sidebar -->
     <div class="quixnav">
         <div class="quixnav-scroll">
@@ -201,7 +208,9 @@
                     <ul aria-expanded="false" class="submenu">
                         <li><a href="{% url 'kho_list' %}"><i class="fas fa-arrow-circle-right"></i> Kho</a></li>
                         <li><a href="{% url 'phieunhap_list' %}"><i class="fas fa-arrow-circle-right"></i> Phiếu nhập</a></li>
+                        <li><a href="{% url 'ctpn_list' %}"><i class="fas fa-arrow-circle-right"></i> Chi tiết Phiếu nhập</a></li>
                         <li><a href="{% url 'phieuxuat_list' %}"><i class="fas fa-arrow-circle-right"></i> Phiếu xuất</a></li>
+                        <li><a href="{% url 'ctpx_list' %}"><i class="fas fa-arrow-circle-right"></i> Chi tiết Phiếu xuất</a></li>
                         <li><a href="{% url 'hang_list' %}"><i class="fas fa-arrow-circle-right"></i> Hàng</a></li>
                         
                     </ul>
@@ -264,10 +273,10 @@
             </div>
             <div class="col-md-3">
                 <div class="stat-card">
-                    <h3>Tổng cửa hàng</h3>
-                    <div class="value">150</div>
+                    <p style="color:red;">Biến test: {{ tong_cuahang }}</p>
                 </div>
             </div>
+            
             <div class="col-md-3">
                 <div class="stat-card">
                     <h3>Tổng nhân viên</h3>

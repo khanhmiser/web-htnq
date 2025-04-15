@@ -221,7 +221,6 @@ class NGUOITHAN(models.Model):
     def __str__(self):
         return f"{self.IDNT},{self.TENNT}, {self.QUANHE}, {self.SDTNT}, {self.nhanvien.MANV}"
 
-
 class PHIEUNHAP(models.Model):
     MAPHIEUNHAP = models.CharField(max_length=10, primary_key=True,null=False)
     NGAYNHAP = models.DateTimeField(null=False)
@@ -375,3 +374,33 @@ class CTPN(models.Model):
     def __str__(self):
         return f"{self.MAPHIEUNHAP}, {self.hang.MAHANG}, {self.SOLUONGNHAP}, {self.DONGIANHAP}"
 
+class CTPX(models.Model):
+    MAPHIEUXUAT = models.CharField(max_length=10,primary_key=True)
+    MAHANG = models.ForeignKey(
+        'HANG',
+        to_field='MAHANG',
+        db_column='MAHANG',
+        on_delete=models.DO_NOTHING,
+        null=False,
+        blank=False,
+        related_name='ds_ctpx'
+    )
+    SOLUONGXUAT = models.IntegerField(null=False)
+    DONGIAXUAT = models.DecimalField(max_digits=15, decimal_places=2, null=False)
+    DONVITINH = models.CharField(max_length=100, null=False)
+    GIAMGIABAN = models.FloatField(null=True, blank=True)
+
+    class Meta:
+        unique_together = ('MAPHIEUXUAT', 'MAHANG')  # Ghép khóa chính
+        db_table = 'CTPX'
+        managed = False  # Không để Django tự tạo bảng (nếu bảng đã có sẵn)
+
+    def __str__(self):
+        return (
+            f"Mã Phiếu Xuất: {self.MAPHIEUXUAT} | "
+            f"Mã Hàng: {self.MAHANG.MAHANG} - Tên Hàng: {self.MAHANG.TENHANG} | "
+            f"Số Lượng Xuất: {self.SOLUONGXUAT} | "
+            f"Đơn Giá Xuất: {self.DONGIAXUAT} | "
+            f"Đơn Vị Tính: {self.DONVITINH} | "
+            f"Giảm Giá Bán: {self.GIAMGIABAN}"
+    )

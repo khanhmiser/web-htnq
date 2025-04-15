@@ -4,32 +4,140 @@
 <head>
     <meta charset="UTF-8">
     <title>Sửa Nhân Viên</title>
+    <!-- Linking Bootstrap CSS for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Adding Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<style>
+    /* Đóng băng navbar */
+    .navbar-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030; /* Luôn nằm trên cùng */
+    }
 
+    /* Khoảng trống cho nội dung dưới */
+    body {
+        padding-top: 56px;
+    }
+</style>
+</head>
+<body>
+
+<!-- Navbar cố định -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed">
+<div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'dashboard' %}">
+        <i class="fas fa-home"></i> Trang Chủ
+    </a>
+</div>
+</nav>
+
+<!-- Main container for the page -->
 <div class="container mt-5">
     <div class="card shadow">
+        <!-- Card header with title -->
         <div class="card-header bg-primary text-white">
             <h3 class="mb-0">Sửa Nhân Viên</h3>
         </div>
         <div class="card-body">
-            <form method="POST">
+            <!-- Form to edit the employee details, method POST ensures form data is sent securely -->
+            <form method="POST" novalidate>
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="mb-3">
-                        <label class="form-label">{{ field.label }}</label>
-                        {{ field }}
-                        {% if field.errors %}
-                            <div class="text-danger small">{{ field.errors }}</div>
-                        {% endif %}
-                    </div>
-                {% endfor %}
-                <button type="submit" class="btn btn-primary w-100">Cập nhật</button>
+                
+                <!-- Field for Mã Nhân Viên (Employee ID) -->
+                <div class="mb-3">
+                    <label for="id_MANV" class="form-label">Mã Nhân Viên</label>
+                    {{ form.MANV }}  <!-- Displaying the form field for MANV -->
+                    {% if form.MANV.errors %}
+                        <div class="text-danger small">{{ form.MANV.errors }}</div> <!-- Displaying errors for MANV -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Mã Quản Lý (Manager ID) -->
+                <div class="mb-3">
+                    <label for="id_MAQL" class="form-label">Mã Quản Lý</label>
+                    {{ form.MAQL }}  <!-- Displaying the form field for MAQL -->
+                    {% if form.MAQL.errors %}
+                        <div class="text-danger small">{{ form.MAQL.errors }}</div> <!-- Displaying errors for MAQL -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Phòng Ban (Department) -->
+                <div class="mb-3">
+                    <label for="id_phongban" class="form-label">Phòng Ban</label>
+                    {{ form.phongban }}  <!-- Displaying the form field for phongban -->
+                    {% if form.phongban.errors %}
+                        <div class="text-danger small">{{ form.phongban.errors }}</div> <!-- Displaying errors for phongban -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Họ Tên (Full Name) -->
+                <div class="mb-3">
+                    <label for="id_HOTEN" class="form-label">Họ Tên</label>
+                    {{ form.HOTEN }}  <!-- Displaying the form field for HOTEN -->
+                    {% if form.HOTEN.errors %}
+                        <div class="text-danger small">{{ form.HOTEN.errors }}</div> <!-- Displaying errors for HOTEN -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Email -->
+                <div class="mb-3">
+                    <label for="id_EMAIL" class="form-label">Email</label>
+                    {{ form.EMAIL }}  <!-- Displaying the form field for EMAIL -->
+                    {% if form.EMAIL.errors %}
+                        <div class="text-danger small">{{ form.EMAIL.errors }}</div> <!-- Displaying errors for EMAIL -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Số Điện Thoại (Phone Number) -->
+                <div class="mb-3">
+                    <label for="id_SDT" class="form-label">Số Điện Thoại</label>
+                    {{ form.SDT }}  <!-- Displaying the form field for SDT -->
+                    {% if form.SDT.errors %}
+                        <div class="text-danger small">{{ form.SDT.errors }}</div> <!-- Displaying errors for SDT -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Ngày Sinh (Date of Birth) -->
+                <div class="mb-3">
+                    <label for="id_NGAYSINH" class="form-label">Ngày Sinh</label>
+                    {{ form.NGAYSINH }}  <!-- Displaying the form field for NGAYSINH -->
+                    {% if form.NGAYSINH.errors %}
+                        <div class="text-danger small">{{ form.NGAYSINH.errors }}</div> <!-- Displaying errors for NGAYSINH -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Hệ Số Lương (Salary Multiplier) -->
+                <div class="mb-3">
+                    <label for="id_HESOLUONG" class="form-label">Hệ Số Lương</label>
+                    {{ form.HESOLUONG }}  <!-- Displaying the form field for HESOLUONG -->
+                    {% if form.HESOLUONG.errors %}
+                        <div class="text-danger small">{{ form.HESOLUONG.errors }}</div> <!-- Displaying errors for HESOLUONG -->
+                    {% endif %}
+                </div>
+
+                <!-- Field for Ngày Vào Làm (Joining Date) -->
+                <div class="mb-3">
+                    <label for="id_NGAYVAOLAM" class="form-label">Ngày Vào Làm</label>
+                    {{ form.NGAYVAOLAM }}  <!-- Displaying the form field for NGAYVAOLAM -->
+                    {% if form.NGAYVAOLAM.errors %}
+                        <div class="text-danger small">{{ form.NGAYVAOLAM.errors }}</div> <!-- Displaying errors for NGAYVAOLAM -->
+                    {% endif %}
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary w-100">Cập nhật</button>  <!-- Submit the form to update the employee -->
+                </div>
             </form>
         </div>
+        <!-- Footer with link to go back to the employee list -->
         <div class="card-footer text-center">
-            <a href="{% url 'employee_list' %}" class="btn btn-light">← Trở lại danh sách</a>
+            <a href="{% url 'employee_list' %}" class="btn btn-outline-secondary">← Trở lại danh sách</a>
         </div>
     </div>
 </div>
