@@ -125,6 +125,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'information/static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/img/'  # <-- đường dẫn URL để hiển thị ảnh
+MEDIA_ROOT = os.path.join(BASE_DIR, 'img')  # <-- thư mục thật chứa ảnh
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

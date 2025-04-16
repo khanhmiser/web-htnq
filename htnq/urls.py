@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from information.views import login_view
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls), 
@@ -24,3 +26,6 @@ urlpatterns = [
     path('', login_view, name='home'), 
 
 ]
+# Thêm cấu hình này để phục vụ các tệp media trong môi trường phát triển
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

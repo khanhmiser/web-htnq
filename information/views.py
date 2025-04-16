@@ -535,20 +535,5 @@ def delete_bangxacthuc(request,pk):
     bangxacthuc.delete()
     return redirect('bangxacthuc_list')
 
-#DASHBOARD
 
 
-
-
-def dashboard_view(request):
-    tong_cuahang = CUAHANGNHUONGQUYEN.MACH.count()
-    tong_nhanvien = NHANVIEN.objects.count()
-
-    
-
-    context = {
-        'tong_cuahang': tong_cuahang,
-        'tong_nhanvien': tong_nhanvien,
-    }
-
-    return render(request, 'dashboard.html', context)
