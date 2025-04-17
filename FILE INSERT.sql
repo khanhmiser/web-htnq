@@ -233,47 +233,48 @@ VALUES
    'Đại học Kinh tế Quốc dân', 'Kinh tế học',
    '2014-09-01', '2021-11-03', 'Hà Nội');
 
-INSERT INTO NGUOITHAN (TENNT, QUANHE, MANV, SDTNT)
+INSERT INTO NGUOITHAN (IDNT,TENNT, QUANHE, MANV, SDTNT)
 VALUES
   -- Người thân của NV001
-  ('Nguyễn Văn Hòa',     'Cha',      'NV001', '0912340001'),
-  ('Trần Thị Lan',       'Mẹ',       'NV001', '0912340002'),
+  (1,'Nguyễn Văn Hòa',     'Cha',      'NV001', '0912340001'),
+  (2,'Trần Thị Lan',       'Mẹ',       'NV001', '0912340002'),
 
   -- Người thân của NV002
-  ('Lê Thị Hồng',        'Vợ',       'NV002', '0909871001'),
-  ('Phạm Văn Hùng',      'Con trai', 'NV002', '0909871002'),
+  (3,'Lê Thị Hồng',        'Vợ',       'NV002', '0909871001'),
+  (4,'Phạm Văn Hùng',      'Con trai', 'NV002', '0909871002'),
 
   -- Người thân của NV003
-  ('Hoàng Văn Long',     'Anh trai', 'NV003', '0901234001'),
-  ('Bùi Thị Hoa',        'Mẹ',       'NV003', '0901234002'),
+  (5,'Hoàng Văn Long',     'Anh trai', 'NV003', '0901234001'),
+  (6,'Bùi Thị Hoa',        'Mẹ',       'NV003', '0901234002'),
 
   -- Người thân của NV004
-  ('Nguyễn Văn Tâm',     'Cha',      'NV004', '0912345670'),
-  ('Trần Thị Như',       'Chị gái',  'NV004', '0912345671'),
+  (7,'Nguyễn Văn Tâm',     'Cha',      'NV004', '0912345670'),
+  (8,'Trần Thị Như',       'Chị gái',  'NV004', '0912345671'),
 
   -- Người thân của NV005
-  ('Lê Văn Hòa',         'Chồng',    'NV005', '0912345672'),
-  ('Phạm Thị Hà',        'Con gái',  'NV005', '0912345673'),
+  (9,'Lê Văn Hòa',         'Chồng',    'NV005', '0912345672'),
+  (10,'Phạm Thị Hà',        'Con gái',  'NV005', '0912345673'),
 
   -- Người thân của NV006
-  ('Hoàng Thị Mai',      'Mẹ',       'NV006', '0912345674'),
-  ('Bùi Văn Quang',      'Em trai',  'NV006', '0912345675'),
+  (11,'Hoàng Thị Mai',      'Mẹ',       'NV006', '0912345674'),
+  (12,'Bùi Văn Quang',      'Em trai',  'NV006', '0912345675'),
 
   -- Người thân của NV007
-  ('Nguyễn Thị Hạnh',    'Vợ',       'NV007', '0912345676'),
-  ('Trần Văn Thắng',     'Cha',      'NV007', '0912345677'),
+  (13,'Nguyễn Thị Hạnh',    'Vợ',       'NV007', '0912345676'),
+  (14,'Trần Văn Thắng',     'Cha',      'NV007', '0912345677'),
 
   -- Người thân của NV008
-  ('Lê Văn Bình',        'Anh rể',   'NV008', '0912345678'),
-  ('Phạm Thị Thảo',      'Chị gái',  'NV008', '0912345679'),
+  (15,'Lê Văn Bình',        'Anh rể',   'NV008', '0912345678'),
+  (16,'Phạm Thị Thảo',      'Chị gái',  'NV008', '0912345679'),
 
   -- Người thân của NV009
-  ('Hoàng Văn Cường',    'Cha',      'NV009', '0912345680'),
-  ('Bùi Thị Loan',       'Mẹ',       'NV009', '0912345681'),
+  (17,'Hoàng Văn Cường',    'Cha',      'NV009', '0912345680'),
+  (18,'Bùi Thị Loan',       'Mẹ',       'NV009', '0912345681'),
 
   -- Người thân của NV010
-  ('Nguyễn Thị Tươi',    'Vợ',       'NV010', '0912345682'),
-  ('Trần Văn Minh',      'Con trai', 'NV010', '0912345683');
+  (19,'Nguyễn Thị Tươi',    'Vợ',       'NV010', '0912345682'),
+  (20,'Trần Văn Minh',      'Con trai', 'NV010', '0912345683');
+
 
   INSERT INTO LyLich (
   TrinhDoVanHoa,
@@ -631,5 +632,5 @@ VALUES
     ('BC058', 'XT015', 'CH030', 'Doanh Thu', '2024-12-30 09:15:00', 'Báo cáo doanh thu tháng 12 - CH030', 22500000);
 
 
-
+select*From goinhuongquyen
 

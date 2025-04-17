@@ -23,6 +23,12 @@
     body {
         padding-top: 56px;
     }
+    .search-bar input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+    }
 </style>
 </head>
 <body>
@@ -42,8 +48,12 @@
             <h4>Danh sách Hàng</h4>
         </div>
         <div class="card-body">
+            <!-- Thanh tìm kiếm -->
+            <div class="search-bar mb-3">
+                <input type="text" id="search" placeholder="🔍 Tìm kiếm theo mã Hàng..." onkeyup="searchFunction()">
+            </div>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
+                <table class="table table-bordered table-hover align-middle text-center" id="HangTable">
                     <thead class="table-primary text-center">
                         <tr>
                             <th>Mã Hàng</th>
@@ -93,5 +103,22 @@
         </div>
     </div>
 </div>
+<!-- Script tìm kiếm -->
+<script>
+    function searchFunction() {
+        let input = document.getElementById("search");
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("HangTable");
+        let tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName("td")[0]; // Cột Mã Hàng
+            if (td) {
+                let txtValue = td.textContent || td.innerText;
+                tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    }
+</script>
 </body>
 </html>

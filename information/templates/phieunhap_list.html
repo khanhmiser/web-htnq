@@ -8,18 +8,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* Đóng băng navbar */
         .navbar-fixed {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1030; /* Luôn nằm trên cùng */
+            z-index: 1030;
         }
 
-        /* Khoảng trống cho nội dung dưới */
         body {
             padding-top: 56px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
         }
     </style>
 </head>
@@ -40,8 +45,13 @@
             <h4>Danh sách Phiếu Nhập</h4>
         </div>
         <div class="card-body">
+            <!-- Thanh tìm kiếm -->
+            <div class="search-bar mb-3">
+                <input type="text" id="search" placeholder="🔍 Tìm kiếm theo Mã Phiếu Nhập..." onkeyup="searchFunction()">
+            </div>
+
             <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
+                <table class="table table-bordered table-hover align-middle" id="phieuNhapTable">
                     <thead class="table-primary text-center">
                         <tr>
                             <th>Mã Phiếu Nhập</th>
@@ -83,6 +93,24 @@
         </div>
     </div>
 </div>
+
+<!-- Script tìm kiếm -->
+<script>
+    function searchFunction() {
+        let input = document.getElementById("search");
+        let filter = input.value.toUpperCase();
+        let table = document.getElementById("phieuNhapTable");
+        let tr = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < tr.length; i++) {
+            let td = tr[i].getElementsByTagName("td")[0]; // Cột Mã Phiếu Nhập
+            if (td) {
+                let txtValue = td.textContent || td.innerText;
+                tr[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+            }
+        }
+    }
+</script>
 
 </body>
 </html>
